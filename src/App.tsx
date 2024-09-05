@@ -1,34 +1,55 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import Title from './components/Title'
+import Form from './components/Form'
+import Results from './components/Results'
+import Loading from './components/Loading'
+
+interface ResultsState {
+  country: string
+  cityName: string
+  temperature: string
+  conditionText: string
+  icon: string
+}
+
+const App = () => {
+  const [loading, setLoading] = useState<boolean>(false)
+  const [city, setCity] = useState<string>("")
+  const [results, setResults] = useState<ResultsState>({
+    country: "",
+    cityName: "",
+    temperature: "",
+    conditionText: "",
+    icon: "",
+  })
+
+  const getWeather = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setLoading(true)
+    const key = import.meta.env.VITE_WEATHERAPI_KEY
+    fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=no`)
+      .then(res=>res.json())
+      .then(data=>{
+        setResults({
+          country: data.location.country,
+          cityName: data.location.name,
+          temperature: data.current.temp_c,
+          conditionText: data.current.condition.text,
+          icon: data.current.condition.icon,
+        })
+        setLoading(false)
+        setCity("")
+      })
+      .catch(()=>alert("エラーが発生しました"))
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <Title />
+      <Form setCity={setCity} getWeather={getWeather} city={city}/>
+      {loading ? <Loading /> : <Results results={results}/>}
+    </div>
   )
 }
 
