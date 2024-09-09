@@ -7,11 +7,13 @@ import EmailVerification from "@/pages/EmailVerification"
 import MyPage from "@/pages/MyPage"
 import Dev from "@/pages/Dev"
 import Setup from "@/pages/Setup"
+import Header from "@/components/Header"
 
 const App = () => {
   return (
     <div className="container">
       <BrowserRouter>
+        <Header />
         <main>
         <Routes>
           <Route path={'/weather/'} element={<Weather/>} />

@@ -1,0 +1,19 @@
+html, body {
+  background-color: #F2F3F6;
+}
+
+main {
+  background-color: #FFF;
+  border-radius: 10px;
+  font-family: Heletica Neue, Arial, Hiragino Sans, Hiragino Kaku Gothic ProN, BIZ UDPGothic, Meiryo, sans-serif;
+  margin: 24px auto;
+  max-width: 1270px;
+  padding: 24px;
+}
+
+@media screen and (max-width: 1270px) {
+  main {
+    margin: 24px;
+  }
+  
+}

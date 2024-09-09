@@ -1,0 +1,16 @@
+header {
+  background-color: #FFF;
+  border-bottom: solid 1px #E1E1E1;
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+header ul {
+  display: flex;
+  list-style-type: none;
+}
+
+header ul li {
+  margin-right: 24px;
+}
