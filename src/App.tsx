@@ -1,54 +1,29 @@
-import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-import Title from './components/Title'
-import Form from './components/Form'
-import Results from './components/Results'
-import Loading from './components/Loading'
-
-interface ResultsState {
-  country: string
-  cityName: string
-  temperature: string
-  conditionText: string
-  icon: string
-}
+import Weather from "@/pages/Weather"
+import Login from "@/pages/Login"
+import Register from "@/pages/Register"
+import EmailVerification from "@/pages/EmailVerification"
+import MyPage from "@/pages/MyPage"
+import Dev from "@/pages/Dev"
+import Setup from "@/pages/Setup"
 
 const App = () => {
-  const [loading, setLoading] = useState<boolean>(false)
-  const [city, setCity] = useState<string>("")
-  const [results, setResults] = useState<ResultsState>({
-    country: "",
-    cityName: "",
-    temperature: "",
-    conditionText: "",
-    icon: "",
-  })
-
-  const getWeather = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setLoading(true)
-    const key = import.meta.env.VITE_WEATHERAPI_KEY
-    fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=no`)
-      .then(res=>res.json())
-      .then(data=>{
-        setResults({
-          country: data.location.country,
-          cityName: data.location.name,
-          temperature: data.current.temp_c,
-          conditionText: data.current.condition.text,
-          icon: data.current.condition.icon,
-        })
-        setLoading(false)
-        setCity("")
-      })
-      .catch(()=>alert("エラーが発生しました"))
-  }
-
   return (
-    <div>
-      <Title />
-      <Form setCity={setCity} getWeather={getWeather} city={city}/>
-      {loading ? <Loading /> : <Results results={results}/>}
+    <div className="container">
+      <BrowserRouter>
+        <main>
+        <Routes>
+          <Route path={'/weather/'} element={<Weather/>} />
+          <Route path={'/signin/'} element={<Login/>} />
+          <Route path={'/signup/'} element={<Register/>} />
+          <Route path={'/verify/'} element={<EmailVerification/>} />
+          <Route path={'/'} element={<MyPage/>} />
+          <Route path={'/dev/'} element={<Dev/>} />
+          <Route path={'/setup/'} element={<Setup/>} />
+        </Routes>
+        </main>
+      </BrowserRouter>
     </div>
   )
 }
