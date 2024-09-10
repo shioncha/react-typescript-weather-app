@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate, Navigate } from "react-router-dom";
-import { onAuthStateChanged, signOut, User } from "firebase/auth"
+import { signOut } from "firebase/auth"
 import { auth, database } from "@/libs/firebase/FirebaseConfig"
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { AuthContext } from "@/context/auth";
 
 interface todoProps {
   created_at: {
@@ -24,24 +25,21 @@ interface userDataProps {
 }
 
 const MyPage = () => {
-  const [user, setUser] = useState<User | null>();
+  const { user } = useContext(AuthContext);
   const [userData, setUserData] = useState<userDataProps>({} as userDataProps);
   const [loading, setLoading] = useState<boolean>(true);
   const [todos, setTodos] = useState<todoProps[]>([]);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      getUserData();
-      setLoading(false);
-    });
-  }, []);
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getUserData();
+    setLoading(false);
+  }, []);
 
   const logout = async () => {
     await signOut(auth);
-    navigate("/sighin/");
+    navigate("/signin/");
   }
 
   const getUserData = async () => {
@@ -70,7 +68,6 @@ const MyPage = () => {
               <h1>マイページ</h1>
               <p>ユーザー名: {userData?.name}</p>
               <p>メールアドレス: {user?.email}</p>
-              {!auth.currentUser?.emailVerified && <p>メールアドレスを認証してください</p>}
               <button onClick={logout}>ログアウト</button>
               <button onClick={getTodos}>TODO一覧を取得</button>
               <ul>
