@@ -1,9 +1,9 @@
 html, body {
-  background-color: #F2F3F6;
+  background-color: var(--background-main);
 }
 
 main {
-  background-color: #FFF;
+  background-color: var(--background-body);
   border-radius: 10px;
   font-family: Heletica Neue, Arial, Hiragino Sans, Hiragino Kaku Gothic ProN, BIZ UDPGothic, Meiryo, sans-serif;
   margin: 24px auto;
