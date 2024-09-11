@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-import Title from '@/components/Title'
-import Form from '@/components/Form'
-import Results from '@/components/Results'
-import Loading from '@/components/Loading'
+import Title from '@/components/Weather/Title'
+import Form from '@/components/Weather/Form'
+import Results from '@/components/Weather/Results'
+import Loading from '@/components/Weather/Loading'
 
 interface ResultsState {
   country: string
