@@ -1,6 +1,7 @@
 header {
-  background-color: #FFF;
-  border-bottom: solid 1px #E1E1E1;
+  align-items: center;
+  background-color: var(--background-body);
+  border-bottom: solid 1px var(--border);
   display: flex;
   justify-content: space-between;
   padding: 24px;
@@ -13,4 +14,41 @@ header ul {
 
 header ul li {
   margin-right: 24px;
+}
+
+header ul li p {
+  margin: 0;
+}
+
+header ul li a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+header ul li a:hover {
+  text-decoration: underline;
+}
+
+.active {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 680px) {
+  header {
+    flex-direction: column;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  header ul {
+    padding: 0;
+  }
+
+  header ul li:last-child {
+    margin: 0;
+  }
+
+  header ul li:not(:last-child) {
+    margin-right: 12px;
+  }
 }
