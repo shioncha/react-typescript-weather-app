@@ -40,7 +40,7 @@ const Register = () => {
           onChange={(e) => setRegisterPassword(e.target.value)}
         />
         <button type="submit">登録</button>
-        <p>既にアカウントを持っている場合は<Link to="/signin">こちら</Link></p>
+        <p>既にアカウントを持っている場合は<Link to="/signin/">こちら</Link></p>
       </form>
     </>
   );

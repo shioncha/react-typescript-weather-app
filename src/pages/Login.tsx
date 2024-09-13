@@ -54,7 +54,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">ログイン</button>
-        <p>アカウントを持っていない場合は<Link to="/signup">こちら</Link></p>
+        <p>アカウントを持っていない場合は<Link to="/signup/">こちら</Link></p>
       </form>
     </>
 )}
